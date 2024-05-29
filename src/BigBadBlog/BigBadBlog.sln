@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\..\.github\workflows\dotnet.yml = ..\..\.github\workflows\dotnet.yml
 		..\..\.github\workflows\formatting.yml = ..\..\.github\workflows\formatting.yml
-		Global.json = Global.json
+		..\Global.json = ..\Global.json
 		..\..\.github\workflows\todos-to-issues.yml = ..\..\.github\workflows\todos-to-issues.yml
 	EndProjectSection
 EndProject
