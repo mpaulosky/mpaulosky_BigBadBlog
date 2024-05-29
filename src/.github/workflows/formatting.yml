@@ -1,10 +1,13 @@
 name: Code formatting
 on:
   push:
+    branches: ["main"]
     paths:
       - src/**.cs
       - src/**.js
       - src/**.css
+  workflow_dispatch:
+
 permissions:
   contents: write
 
