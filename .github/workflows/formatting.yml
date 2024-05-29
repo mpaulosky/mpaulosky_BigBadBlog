@@ -1,6 +1,7 @@
 name: Code formatting
 on:
   push:
+    branches: ["main"]
     paths:
       - src/**.cs
       - src/**.js
