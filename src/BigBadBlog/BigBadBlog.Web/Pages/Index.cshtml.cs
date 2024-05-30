@@ -11,9 +11,11 @@ using Markdig;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace BigBadBlog.Web.Pages;
 
+[OutputCache(PolicyName = "Home")]
 public class IndexModel : PageModel
 {
 	private readonly ILogger<IndexModel> _logger;
@@ -33,6 +35,9 @@ public class IndexModel : PageModel
 
 	public async Task<IActionResult> OnGetAsync()
 	{
+		// NEW LINE
+		await Task.Delay(TimeSpan.FromSeconds(1));
+
 		Posts = await _postRepository.GetPostsAsync(10, 1);
 
 		return Page();
