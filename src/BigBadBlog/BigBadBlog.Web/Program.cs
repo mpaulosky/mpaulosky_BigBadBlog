@@ -11,17 +11,18 @@ global using BigBadBlog.Web.Data;
 
 using System.Net;
 
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using BigBadBlog.Common;
+using BigBadBlog.Data.Postgres;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Aspire service defaults
 builder.AddServiceDefaults();
 
-// Add OutputCache service	
-builder.AddRedisOutputCache("outputcache");
+builder.AddPostgresDatabaseServices();
 
+// Add OutputCache service	
+builder.AddRedisOutputCache(ServiceNames.Outputcache);
 builder.Services.AddOutputCache(options =>
 {
 	options.AddBasePolicy(policy => policy.Tag("ALL").Expire(TimeSpan.FromMinutes(5)));
@@ -29,19 +30,8 @@ builder.Services.AddOutputCache(options =>
 	options.AddPolicy("Post", policy => policy.Tag("Post").SetVaryByRouteValue("slug").Expire(TimeSpan.FromSeconds(30)));
 });
 
-// Add my repository for posts
-builder.Services.AddTransient<IPostRepository, MarkdownPostRepository>();
-
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-											 throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlite(connectionString));
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+builder.AddIdentityServices();
 
 builder.Services.AddRazorPages();
 
@@ -74,5 +64,19 @@ app.UseAuthorization();
 app.UseOutputCache();
 
 app.MapRazorPages();
+
+var mdRepo = new MarkdownPostRepository();
+var pgRepo = app.Services.CreateScope().ServiceProvider.GetRequiredService<IPostRepository>();
+
+var pgPosts = await pgRepo.GetPostsAsync(10, 1);
+
+if (!pgPosts.Any())
+{
+	var existingPosts = await mdRepo.GetPostsAsync(10, 1);
+	foreach (var post in existingPosts)
+	{
+		await pgRepo.AddPostAsync(post.Item1, post.Item2);
+	}
+}
 
 app.Run();
