@@ -7,16 +7,43 @@
 // Project Name :  BigBadBlog.AppHost
 // =============================================
 
+using BigBadBlog.Common;
+
 using Projects;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-// Add Aspire Redis Cache
+#region Add Aspire Redis Cache
+
 var cache = builder.AddRedis("outputcache")
 	.WithRedisCommander();
 
-// Add Website
+#endregion
+
+#region Add Postgres Database
+
+var postgresPassword =
+	builder.AddParameter("postgrespassword", secret: true);
+
+var db =
+	builder.AddPostgres(ServiceNames.DatabasePosts.Servername, password: postgresPassword)
+		.WithDataVolume()
+		.WithPgAdmin()
+		.AddDatabase(ServiceNames.DatabasePosts.Name);
+
+#endregion
+
+#region Add Website
+
 var webApp = builder.AddProject<BigBadBlog_Web>("web")
-	.WithReference(cache);
+	.WithReference(cache)
+	.WithReference(db)
+	.WithExternalHttpEndpoints();
+
+#endregion
+
+var migrationService =
+	builder.AddProject<BigBadBlog_Service_DatabaseMigrations>(ServiceNames.Migration)
+		.WithReference(db);
 
 builder.Build().Run();

@@ -7,6 +7,8 @@
 // Project Name :  BigBadBlog.Web
 // =============================================
 
+using BigBadBlog.Common;
+
 using Markdig;
 using Markdig.Extensions.Yaml;
 using Markdig.Syntax;
@@ -18,22 +20,22 @@ namespace BigBadBlog.Web.Data;
 /// </summary>
 public class MarkdownPostRepository : IPostRepository
 {
-	private static readonly Dictionary<PostMetadata, string> _posts = new();
-	private readonly MarkdownPipeline _MarkdownPipeline;
+	private static readonly Dictionary<PostMetadata, string> Posts = new();
+	private readonly MarkdownPipeline _markdownPipeline;
 
 	public MarkdownPostRepository()
 	{
-		_MarkdownPipeline = new MarkdownPipelineBuilder()
+		_markdownPipeline = new MarkdownPipelineBuilder()
 			.UseYamlFrontMatter()
 			.Build();
 
-		if (!_posts.Any())
+		if (!Posts.Any())
 		{
 			var files = Directory.GetFiles("Posts", "*.md");
 			foreach (var file in files)
 			{
 				var newPost = ExtractMetadataFromFile(file);
-				_posts.Add(newPost.Item1, newPost.Item2);
+				Posts.Add(newPost.Item1, newPost.Item2);
 			}
 		}
 	}
@@ -41,9 +43,14 @@ public class MarkdownPostRepository : IPostRepository
 	public Task<(PostMetadata, string)> GetPostAsync(string slug)
 	{
 		var toCheck = Uri.EscapeDataString(slug.ToLower());
-		var thePost = _posts.FirstOrDefault(p => p.Key.Slug == toCheck);
+		var thePost = Posts.FirstOrDefault(p => p.Key.Slug == toCheck);
 
 		return Task.FromResult((thePost.Key, thePost.Value));
+	}
+
+	public Task AddPostAsync(PostMetadata metadata, string content)
+	{
+		throw new NotImplementedException();
 	}
 
 	public Task<IEnumerable<(PostMetadata, string)>> GetPostsAsync(int count, int page)
@@ -51,8 +58,8 @@ public class MarkdownPostRepository : IPostRepository
 		count = count < 1 ? 10 : count;
 		page = page < 1 ? 1 : page;
 
-		return _posts.Any()
-			? Task.FromResult(_posts
+		return Posts.Any()
+			? Task.FromResult(Posts
 				.OrderByDescending(p => p.Key.Date)
 				.Skip((page - 1) * count)
 				.Take(count)
@@ -66,7 +73,7 @@ public class MarkdownPostRepository : IPostRepository
 		// Read all content from the file
 		var content = File.ReadAllText(fileName);
 
-		var yamlBlock = Markdown.Parse(content, _MarkdownPipeline)
+		var yamlBlock = Markdown.Parse(content, _markdownPipeline)
 			.Descendants<YamlFrontMatterBlock>()
 			.FirstOrDefault();
 

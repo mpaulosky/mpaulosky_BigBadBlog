@@ -1,4 +1,4 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.34909.67
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -19,6 +19,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigBadBlog.AppHost", "BigBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigBadBlog.ServiceDefaults", "BigBadBlog.ServiceDefaults\BigBadBlog.ServiceDefaults.csproj", "{8BF893BA-D86B-4F8F-8503-63A30593094C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigBadBlog.Common", "BigBadBlog.Common\BigBadBlog.Common.csproj", "{36F79B44-1BA8-46EA-8918-CBE2D427F97C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigBadBlog.Data.Postgres", "BigBadBlog.Data.Postgres\BigBadBlog.Data.Postgres.csproj", "{86A8A5B5-33BB-40F8-85E5-0CE82DFBA28F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BigBadBlog.Service.DatabaseMigrations", "BigBadBlog.Service.DatabaseMigrations\BigBadBlog.Service.DatabaseMigrations.csproj", "{72C07A6C-4028-4A55-8D8C-5C51C0FF5628}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +43,18 @@ Global
 		{8BF893BA-D86B-4F8F-8503-63A30593094C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BF893BA-D86B-4F8F-8503-63A30593094C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BF893BA-D86B-4F8F-8503-63A30593094C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F79B44-1BA8-46EA-8918-CBE2D427F97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F79B44-1BA8-46EA-8918-CBE2D427F97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F79B44-1BA8-46EA-8918-CBE2D427F97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F79B44-1BA8-46EA-8918-CBE2D427F97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A8A5B5-33BB-40F8-85E5-0CE82DFBA28F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A8A5B5-33BB-40F8-85E5-0CE82DFBA28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A8A5B5-33BB-40F8-85E5-0CE82DFBA28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A8A5B5-33BB-40F8-85E5-0CE82DFBA28F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C07A6C-4028-4A55-8D8C-5C51C0FF5628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C07A6C-4028-4A55-8D8C-5C51C0FF5628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C07A6C-4028-4A55-8D8C-5C51C0FF5628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C07A6C-4028-4A55-8D8C-5C51C0FF5628}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

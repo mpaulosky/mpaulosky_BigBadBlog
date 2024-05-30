@@ -7,6 +7,8 @@
 // Project Name :  BigBadBlog.Web
 // =============================================
 
+using BigBadBlog.Common;
+
 using Markdig;
 
 using Microsoft.AspNetCore.Mvc;

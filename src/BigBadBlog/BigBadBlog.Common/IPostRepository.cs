@@ -4,10 +4,10 @@
 // Company :       mpaulosky
 // Author :        teqsl
 // Solution Name : BigBadBlog
-// Project Name :  BigBadBlog.Web
+// Project Name :  BigBadBlog.Common
 // =============================================
 
-namespace BigBadBlog.Web.Data;
+namespace BigBadBlog.Common;
 
 /// <summary>
 ///   A definition of a simple interaction with blog posts
@@ -17,6 +17,8 @@ public interface IPostRepository
 	Task<IEnumerable<(PostMetadata, string)>> GetPostsAsync(int count, int page);
 
 	Task<(PostMetadata, string)> GetPostAsync(string slug);
+
+	Task AddPostAsync(PostMetadata metadata, string content);
 }
 
 public record PostMetadata(string Filename, string Title, string Author, DateTime Date)
