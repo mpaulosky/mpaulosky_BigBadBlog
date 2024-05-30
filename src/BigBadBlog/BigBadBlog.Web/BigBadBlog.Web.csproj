@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.0.1" />
 		<PackageReference Include="Markdig" Version="0.37.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
@@ -22,6 +23,10 @@
 
 	<ItemGroup>
 		<Folder Include="Posts\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BigBadBlog.ServiceDefaults\BigBadBlog.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 </Project>
