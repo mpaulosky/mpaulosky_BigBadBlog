@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Files", "0. Sol
 		..\.gitignore = ..\.gitignore
 		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
 		..\.github\workflows\formatting.yml = ..\.github\workflows\formatting.yml
-		global.json = global.json
+		..\Global.json = ..\Global.json
 		..\.github\workflows\todos-to-issues.yml = ..\.github\workflows\todos-to-issues.yml
 	EndProjectSection
 EndProject
